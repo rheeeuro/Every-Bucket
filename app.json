@@ -1,6 +1,7 @@
 {
   "expo": {
-    "name": "everyBucket",
+    "name": "Every Bucket",
+    "description": "Every bucket App made with React Native",
     "slug": "everyBucket",
     "privacy": "public",
     "sdkVersion": "33.0.0",
@@ -21,10 +22,13 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
-      "**/*"
+      "assets/*"
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.bellzet.everyBucket"
     }
   }
 }
