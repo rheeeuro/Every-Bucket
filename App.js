@@ -4,7 +4,8 @@ import { StyleSheet,
   View, 
   Dimensions, 
   TouchableOpacity } from 'react-native';
-  import Header from './Header';
+import Header from './Header';
+import Lower from './Lower';
 
 const { height, width } = Dimensions.get("window");
 
@@ -19,17 +20,7 @@ export default class App extends Component {
         <View style={styles.contents}>
           <Text>contents</Text>
         </View>
-        <View style={styles.lower}>
-          <TouchableOpacity>
-            <Text>트렌드</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text>버킷리스트</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text>마이페이지</Text>
-          </TouchableOpacity>
-        </View>
+        <Lower />
       </View>
     );
   }
@@ -40,19 +31,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
+    justifyContent: "space-between",
   },
   contents: {
-    flex: 7,
+    flex: 15,
     width: width,
   },
-  lower: {
-    flex: 0.7,
-    backgroundColor: '#E5E5E5',
-    width: width,
-    borderTopWidth: 1,
-    borderTopColor: 'black',
-    flexDirection: "row",
-    justifyContent: "space-between"
-  }
 });
