@@ -4,8 +4,11 @@ import { StyleSheet,
   View, 
   Dimensions, 
   TouchableOpacity } from 'react-native';
-import Header from './Header';
-import Lower from './Lower';
+import HeaderComponent from './Header';
+import Footer from './Footer';
+import { Divider } from 'react-native-elements';
+
+
 
 const { height, width } = Dimensions.get("window");
 
@@ -16,11 +19,14 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header />
+        <HeaderComponent />
+        <Divider style={{ backgroundColor: 'blue' }} />
         <View style={styles.contents}>
           <Text>contents</Text>
+          
         </View>
-        <Lower />
+        <Divider style={{ backgroundColor: 'blue' }} />
+        <Footer />
       </View>
     );
   }

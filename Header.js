@@ -1,66 +1,44 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { Header } from 'react-native-elements';
+import { StyleSheet, Dimensions, View, TouchableOpacity } from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
 
 
 const { height, width } = Dimensions.get("window");
 
-export default class Header extends Component {
+export default class HeaderComponent extends Component {
     render() {
         return (
-            <View style={styles.upper}>
-                <View style={styles.upperContents}>
-                  <View style={styles.logo}>
-                      <Text>모두의</Text>
-                      <Text>Bucket</Text>
-                  </View>
-                  <View style={styles.upperBtns}>
-                      <TouchableOpacity>
-                      <View style={styles.circle}>
-                          <Text>검색</Text>
-                      </View>
-                      </TouchableOpacity>
-                      <TouchableOpacity>
-                      <View style={styles.circle}>
-                          <Text>설정</Text>
-                      </View>
-                      </TouchableOpacity>
-                  </View>
-                </View>
-            </View>
+          <Header 
+            placement="left"
+            leftComponent={{ icon: 'menu', color: '#273BE7' }}
+            centerComponent={{ text: '모두의 Bucket', style: { color: '#273BE7', fontSize: 20 } }}
+            rightComponent={ <RightComponent /> }
+            containerStyle={{ backgroundColor: '#fcfcfc' }}
+          />
         );
     }
 }
+
+class RightComponent extends Component {
+  render() {
+    return (
+      <View style={{flexDirection: "row"}}>
+        <TouchableOpacity style={styles.icons}>
+          <Ionicons color="#273BE7" size={30} name="ios-search" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.icons}>
+          <Ionicons color="#273BE7" size={30} name="ios-home" />
+        </TouchableOpacity>
+      </View>
+      
+    );
+  }
+}
   
 
-const styles = StyleSheet.create({    
-    upper: {
-      flex: 3,
-      width: width,
-      backgroundColor: '#E5E5E5',
-      borderBottomWidth: 1,
-      borderBottomColor: 'blue'
-    },
-    upperContents: {
-      flex: 1,
-      marginTop: 50,
-      flexDirection: "row",
-      justifyContent: "space-between"
-    },
-    logo: {
-      marginLeft: 20,
-      marginVertical: 15
-    },
-    circle: {
-      width: 50,
-      height: 50,
-      borderRadius: 25,
-      borderWidth: 3,
-      marginRight: 20,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    upperBtns: {
-      flexDirection: "row",
-      marginVertical: 10
-    }
+const styles = StyleSheet.create({
+  icons: {
+    marginHorizontal: 10
+  }
 });
