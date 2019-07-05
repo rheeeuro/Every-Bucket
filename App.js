@@ -20,28 +20,29 @@ export default class App extends Component {
     newBucket: "",
     buckets:[
       {
-        id:1,
+        id:"1",
         picture:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Mia1997.JPG/220px-Mia1997.JPG",
-        bucketList:"축구화사기",
+        text:"축구화사기",
         starRate:"9.2",
         category:["취미", "운동","축구"],
       },
       {
-        id:2,
+        id:"2",
         picture:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Mia1997.JPG/220px-Mia1997.JPG",
-        bucketList:"축구화사기",
+        text:"축구화사기",
         starRate:"9.2",
         category:["취미", "운동","축구"],
       },
       {
-        id:3,
+        id:"3",
         picture:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Mia1997.JPG/220px-Mia1997.JPG",
-        bucketList:"축구화사기",
+        text:"축구화사기",
         starRate:"9.2",
         category:["취미", "운동","축구"],
       }
     ],
-    isLoaded:true
+    isLoaded:true,
+    fontLoaded: false
   };
 
   componentDidMount = () => {
@@ -61,7 +62,7 @@ export default class App extends Component {
           <Bucket
             key={bucket.id}
             picture={bucket.picture}
-            text={bucket.bucketList}
+            text={bucket.text}
             starRate={bucket.starRate}
             category={bucket.category}
             deleteBucket={this._deleteBucket}
