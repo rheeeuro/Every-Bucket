@@ -5,10 +5,8 @@ import { Entypo } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 import { Ionicons } from "@expo/vector-icons";
 import * as Font from 'expo-font'
-import DropDown from "./DropDown";
 
-
-export default class Bucket extends Component{
+export default class Trend extends Component{
     constructor(props){
         super(props);
         this.state = { isEditing: false, 
@@ -31,7 +29,7 @@ export default class Bucket extends Component{
 
     async componentDidMount() {
         await Font.loadAsync({
-          'BMHANNA': require('./assets/fonts/BMHANNA_11yrs_ttf.ttf')
+          'BMHANNA': require('../../../assets/fonts/BMHANNA_11yrs_ttf.ttf')
         });
         this.setState({ fontLoaded: true });
     }
@@ -44,20 +42,16 @@ export default class Bucket extends Component{
             this.state.fontLoaded ? (
                 <View style={styles.container} key={id}>
                     <View style={styles.avatarContainer} key="1">
-                        <Avatar size="large" rounded source={{uri:picture}}/>
+                        <Avatar size="medium" rounded source={{uri:picture}}/>
                         <Entypo style={[styles.starRate, styles.font]} name="star" size={12}>{starRate}</Entypo>
                     </View>
-                    <View style={styles.textContainer} key="2">
-                        <Text style={[styles.category, styles.font]}>{category[0]} > {category[1]} > {category[2]}</Text>
+                    <View style={styles.textContainer} key="2">       
                         <Text style={[styles.bucketList, styles.font]}>{text}</Text>
+                        <Text style={[styles.category, styles.font]}>{category[0]} > {category[1]} > {category[2]}</Text>
                     </View>
                     <View style={styles.actions}>
-                            {/* <TouchableOpacity>
-                                <View style={styles.bucketMenu}>
-                                <Ionicons color="#2b2b2b" size={25} name="ios-more" />
-                                </View>
-                            </TouchableOpacity> */}
-                            <DropDown/>
+          
+
                     </View>
                 </View>
             ): null
@@ -69,7 +63,7 @@ const styles = StyleSheet.create({
     container:{
         flexDirection:'row',
         borderWidth: 0.5,
-        height: 120
+        height: 80
     },
     avatarContainer:{
         flex:1,
@@ -91,11 +85,12 @@ const styles = StyleSheet.create({
     category:{
         fontSize:15,
         marginBottom:10,
-        marginTop:20
+        marginTop:10
     },
     bucketList:{
         fontSize:25,
-        fontWeight:"300"
+        fontWeight:"300",
+        marginTop:10
     },
     bucketMenu: {
         marginRight: 30,

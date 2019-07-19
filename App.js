@@ -1,165 +1,79 @@
 import React, { Component } from 'react';
-import { StyleSheet, 
-  Text, 
-  View, 
-  Dimensions, 
-  TouchableOpacity,
-  ScrollView,
-  AsyncStorage } from 'react-native';
-  import { AppLoading } from "expo"; 
-import { Divider } from 'react-native-elements';
-import HeaderComponent from './Header';
-import Footer from './Footer';
-import Bucket from './Bucket';
-import uuidv1 from "uuid/v1";
+import { StatusBar } from 'react-native';
+// import { Root } from "native-base";
+import { Font, AppLoading } from "expo";
+// import thunk from 'redux-thunk'
+// import { Provider } from 'react-redux';
+// import { createStore, applyMiddleware } from 'redux';
+// import { createLogger } from 'redux-logger';
 
-const { height, width } = Dimensions.get("window");
+import MainNavigation from './src/navigation/MainNavigation';
+// import allReducers from './src/reducers';
 
-export default class App extends Component {
-  state = {
-    newBucket: "",
-    buckets:[
-      {
-        id:"1",
-        picture:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Mia1997.JPG/220px-Mia1997.JPG",
-        text:"축구화사기",
-        starRate:"9.2",
-        category:["취미", "운동","축구"],
-      },
-      {
-        id:"2",
-        picture:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Mia1997.JPG/220px-Mia1997.JPG",
-        text:"축구화사기",
-        starRate:"9.2",
-        category:["취미", "운동","축구"],
-      },
-      {
-        id:"3",
-        picture:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Mia1997.JPG/220px-Mia1997.JPG",
-        text:"축구화사기",
-        starRate:"9.2",
-        category:["취미", "운동","축구"],
-      }
-    ],
-    isLoaded:true,
-    fontLoaded: false
-  };
+// const logger = createLogger(); 
+// const store = createStore(allReducers, applyMiddleware(logger, thunk));
 
-  componentDidMount = () => {
-    this._loadBucket();
-  }
+// export default () => <App/>;
+export default class RootApp extends Component {
+  // constructor(props) {
+  //   super(props);
+
+  //   this.state = { 
+  //     loaded: false 
+  //   };
+  // }
+
+  // async componentWillMount() {
+  //   console.log('Run App!!!');
+
+  //   await this.loadAssets();
+  //   this.setState({ loaded: true });
+  // }
+
+  // handleError = (error) => console.log(error);
+
+  // handleLoaded = () => this.setState({ loaded: true });
+
+  // _loadAssets = async() => {
+	// 	// Font Preloading
+  //   await Font.loadAsync({
+      // Roboto: require("native-base/Fonts/Roboto.ttf"),
+      // Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      // 'Sweet Sensations Persona Use': require('./assets/Sweet_Sensations_Persona_Use.ttf'),
+      // 'Noto Sans KR': require('./assets/NotoSansKR-Regular.otf'),
+      // 'Noto Sans KR Bold': require('./assets/NotoSansKR-Bold.otf'),
+      // 'Noto Serif KR': require('./assets/NotoSerifKR-Regular.otf'),
+      // 'Noto Serif KR Bold': require('./assets/NotoSerifKR-Bold.otf'),
+  //     'BMHANNA': require('../../../assets/fonts/BMHANNA_11yrs_ttf.ttf')
+  //   });
+  //   this.setState({ fontLoaded: true });
+  //   console.log('loadAssets complete!!!');
+  // }
 
   render() {
-    const { newBucket, isLoaded, buckets } = this.state;
+    // const { loaded } = this.state;
     return (
-      <View style={styles.container}>
-        <HeaderComponent />
-        <Divider style={{ backgroundColor: 'blue' }} />
-     
-        <ScrollView contentContainerStyle={styles.buckets}>
-          {Object.values(buckets).reverse()
-          .map(bucket =>
-          <Bucket
-            key={bucket.id}
-            picture={bucket.picture}
-            text={bucket.text}
-            starRate={bucket.starRate}
-            category={bucket.category}
-            deleteBucket={this._deleteBucket}
-            updateBucket = {this._updateBucket}
-            {...bucket}
-             />)}
-        </ScrollView>
-
-        <Divider style={{ backgroundColor: 'blue'} } />
-        <Footer />
-      </View>
+      // <>
+      //   <StatusBar 
+      //     backgroundColor="white" 
+      //     barStyle="dark-content"/>
+      //   {
+      //     (loaded)
+      //     ?
+      //     <Root>
+      //       <Provider store={ store }>
+      //         <MainNavigation/>
+      //       </Provider>
+      //     </Root>
+      //     :
+      //     <AppLoading 
+      //       startAsync={this.loadAssets}
+      //       onFinish={this.handleLoaded} 
+      //       onError={this.handleError} />
+      //   }
+      // </>
+      
+      <MainNavigation/>
     );
   }
-
-
-  _controlNewBucket = text =>{
-    this.setState({
-      newBucket: text
-    })
-  }
-  _loadBucket = async () => {
-    try {
-      const buckets = await AsyncStorage.getItem("buckets");
-      const parsedBuckets = (buckets == null) ? {} : JSON.parse(buckets);
-      this.setState({ load: true, toDos: parsedToDos });
-    } catch(err) {
-      console.log(err);
-    }
-
-  }
-  _addBucket = () => {
-   const { newBucket } = this.state;
-    if(newBucket != ""){
-      this.setState(prevState => {
-        const ID = uuidv1();
-        const newBucketObject = {
-          [ID]: {
-            id: ID,
-            text: newBucket,
-            createdAt: Date.now()
-          }
-        };
-        const newState = {
-          ...prevState,
-          newBucket: "",
-          buckets: {
-            ...prevState.buckets,
-            ...newBucketObject
-          }
-        };
-        this._saveBuckets(newState.buckets);
-        return { ...newState };
-      });
-    }
-  };
-  _deleteBucket = (id) => {
-    this.setState(prevState => {
-      const buckets = prevState.buckets;
-      delete buckets[id];
-      const newState = {
-        ...prevState,
-        ...buckets
-      };
-      this._saveBuckets(newState.buckets);
-      return { ...newState };
-    });
-  };
-  _updateBucket = (id, text) => {
-    this.setState(prevState => {
-      const newState = {
-        ...prevState,
-        buckets: {
-          ...prevState.buckets,
-          [id]: {...prevState.buckets[id], text: text}
-        }
-      };
-      this._saveBuckets(newState.buckets);
-      return { ...newState };
-    })
-  };
-  _saveBuckets = (newBuckets) => {
-    const saveBuckets = AsyncStorage.setItem("buckets", JSON.stringify(newBuckets));
-    };
-  
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: "space-between",
-  },
-  contents: {
-    flex: 15,
-    width: width,
-  },
-  bucket: {
-    alignItems: "center"
-  }
-});
